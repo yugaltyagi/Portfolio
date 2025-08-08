@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yogeshwar Tyagi — Android Developer</title>
+  <meta name="description" content="Portfolio of Yogeshwar Tyagi — Android Developer" />
+  <link rel="stylesheet" href="styles/Main.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Particle canvas and subtle cursor spark -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="spark" id="spark"></div>
+
+  <div class="container">
+    <header class="topbar">
+      <div class="brand" onclick="navigate('home')">
+        <div class="logo">YT</div>
+        <div class="brand-text">
+          <div class="name">Yogeshwar Tyagi</div>
+          <div class="role">Android Developer • MCA • Salesforce Intern</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#home" data-route="home" class="nav-link active">Home</a>
+        <a href="#projects" data-route="projects" class="nav-link">Projects</a>
+        <a href="#skills" data-route="skills" class="nav-link">Skills</a>
+        <a href="#recruiter" data-route="recruiter" class="nav-link">For Recruiters</a>
+        <a href="#contact" data-route="contact" class="nav-link">Contact</a>
+      </nav>
+
+      <button id="resumeBtn" class="btn">Resume</button>
+    </header>
+
+    <!-- MAIN SPA VIEW -->
+    <main id="view" class="view">
+      <!-- Home Page -->
+      <section id="page-home" class="page">
+        <div class="hero">
+          <div class="hero-left">
+            <span class="badge">Android Developer</span>
+            <h1>Hi — I'm <span class="accent">Yogeshwar</span><br> I build delightful Android experiences.</h1>
+            <p class="lead">Crafting performant apps with clean architecture. I love RecyclerView optimizations, Firebase integrations, and elegant UI.</p>
+
+            <div class="ctas">
+              <button class="btn primary" id="hireBtn">Hire me</button>
+              <button class="btn ghost" id="seeProjects">See projects</button>
+            </div>
+
+            <div class="skills-row fade-in">
+              <div class="skill">Java • Kotlin</div>
+              <div class="skill">Firebase</div>
+              <div class="skill">RecyclerView</div>
+              <div class="skill">Salesforce</div>
+            </div>
+          </div>
+
+          <aside class="hero-card">
+            <div class="profile">
+              <div class="avatar">YT</div>
+              <div>
+                <div class="pname">Yogeshwar Tyagi</div>
+                <div class="pmuted">Android Developer</div>
+              </div>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <strong>6+</strong>
+                Projects
+              </div>
+              <div class="stat">
+                <strong>2</strong>
+                Internships
+              </div>
+              <div class="stat">
+                <strong>100%</strong>
+                Passion
+              </div>
+            </div>
+
+            <div class="mini-cta">
+              <a class="link-btn" id="downloadResume" href="Yogeshwar resume.pdf" download>Download Resume</a>
+            </div>
+          </aside>
+        </div>
+
+        <div class="projects-preview fade-in">
+          <h3>Featured Projects</h3>
+          <div class="proj-list" id="projList">
+            <!-- Cards are injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Page -->
+      <section id="page-projects" class="page hidden">
+        <h2>Projects</h2>
+        <p class="muted">A few highlights — click to view source or demo.</p>
+
+        <div class="grid" id="projectsGrid">
+          <!-- Project cards injected by JS -->
+        </div>
+      </section>
+
+      <!-- Skills Page -->
+      <section id="page-skills" class="page hidden">
+        <h2>Technical <span class="accent">Skills</span></h2>
+        <p class="muted">My expertise across different areas of Android development</p>
+        
+        <div class="skills-container">
+          <canvas id="skillsRadar" width="400" height="400"></canvas>
+          
+          <div class="skills-legend">
+            <h3>Core Competencies</h3>
+            <ul class="skills-list">
+              <li class="scroll-animate">
+                <div class="skill-bar-container">
+                  <span>Kotlin</span>
+                  <div class="skill-bar">
+                    <div class="skill-level" style="width: 95%"></div>
+                  </div>
+                </div>
+              </li>
+              <li class="scroll-animate">
+                <div class="skill-bar-container">
+                  <span>Java</span>
+                  <div class="skill-bar">
+                    <div class="skill-level" style="width: 90%"></div>
+                  </div>
+                </div>
+              </li>
+              <li class="scroll-animate">
+                <div class="skill-bar-container">
+                  <span>Android SDK</span>
+                  <div class="skill-bar">
+                    <div class="skill-level" style="width: 85%"></div>
+                  </div>
+                </div>
+              </li>
+              <li class="scroll-animate">
+                <div class="skill-bar-container">
+                  <span>Jetpack Compose</span>
+                  <div class="skill-bar">
+                    <div class="skill-level" style="width: 80%"></div>
+                  </div>
+                </div>
+              </li>
+              <li class="scroll-animate">
+                <div class="skill-bar-container">
+                  <span>Firebase</span>
+                  <div class="skill-bar">
+                    <div class="skill-level" style="width: 75%"></div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recruiter Page -->
+      <section id="page-recruiter" class="page hidden">
+        <div class="recruiter-hero">
+          <div>
+            <h2>For Recruiters</h2>
+            <p class="muted">Looking for a reliable Android dev? Here's a quick recruiter summary you can copy.</p>
+            <div class="callout">
+              <ul>
+                <li>Strong in Java & Kotlin, Firebase integration.</li>
+                <li>Experience with RecyclerView, custom adapters, and offline sync.</li>
+                <li>Worked on banking data model in Salesforce (Branch / Account / Transaction).</li>
+                <li>Open to full-time and internships.</li>
+              </ul>
+            </div>
+
+            <div style="margin-top:14px;">
+              <button class="btn primary" id="contactRecruiter">Contact</button>
+              <a href="Yogeshwar resume.pdf" download class="btn ghost">Download CV</a>
+            </div>
+          </div>
+
+          <aside class="callout">
+            <h4>Quick Stats</h4>
+            <p class="muted">Available to interview — here's my tel & email (in resume).</p>
+            <div style="margin-top:10px;">
+              <div class="stat-vertical"><strong>Education</strong> MCA (in progress)</div>
+              <div class="stat-vertical"><strong>Location</strong> Delhi, India</div>
+              <div class="stat-vertical"><strong>Availability</strong> Immediate</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Contact Page -->
+      <section id="page-contact" class="page hidden">
+        <h2>Contact</h2>
+        <p class="muted">Let's build something awesome. Send a quick message.</p>
+
+        <form id="contactForm" class="contact-form" novalidate>
+          <input type="text" id="name" placeholder="Your name" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <input type="text" id="subject" placeholder="Subject" required />
+          <textarea id="message" rows="6" placeholder="Message" required></textarea>
+          <div style="display:flex;gap:10px">
+            <button type="submit" class="btn primary">Send</button>
+            <button type="button" class="btn ghost" id="clearBtn">Clear</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> Yogeshwar Tyagi — Built with ❤️</div>
+    </footer>
+  </div>
+
+  <!-- Modal (success) -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Message Sent</h3>
+      <p>Your query was sent successfully. I'll get back to you soon.</p>
+      <div style="text-align:right;margin-top:12px">
+        <button class="btn ghost" id="modalClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="JS/main.js"></script>
+  <script src="JS/advanced-animations.js"></script>
+</body>
+</html>
