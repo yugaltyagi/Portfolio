@@ -6,12 +6,16 @@
     <title>Yogeshwar Tyagi | For Recruiters</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/recruiter.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div id="particles-js"></div>
     
     <nav class="floating-nav">
-        <!-- Same navigation as homepage -->
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="#journey" class="nav-link">Journey</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
     </nav>
 
     <section class="recruiter-hero">
@@ -21,21 +25,33 @@
                 <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
                 <h3>Formal Education</h3>
                 <p>MCA from NIET with focus on mobile architectures</p>
+                <div class="card-stats">
+                    <span>3.8 GPA</span>
+                    <span>2025</span>
+                </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
                 <h3>Production Experience</h3>
                 <p>3 apps with 10k+ downloads on Play Store</p>
+                <div class="card-stats">
+                    <span>100%</span>
+                    <span>Crash-free</span>
+                </div>
             </div>
             <div class="card">
                 <div class="card-icon"><i class="fas fa-code-branch"></i></div>
                 <h3>Open Source</h3>
                 <p>Active contributor to Android libraries</p>
+                <div class="card-stats">
+                    <span>5+</span>
+                    <span>Contributions</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="timeline-section">
+    <section id="journey" class="timeline-section">
         <h2>My Professional <span class="highlight">Journey</span></h2>
         <div class="timeline">
             <div class="timeline-item">
@@ -43,15 +59,63 @@
                 <div class="timeline-content">
                     <h3>Salesforce Intern</h3>
                     <p>Built banking data models with custom objects and triggers</p>
+                    <div class="timeline-tech">
+                        <span>Apex</span>
+                        <span>SOQL</span>
+                        <span>Lightning</span>
+                    </div>
                 </div>
             </div>
-            <!-- More timeline items -->
+            <div class="timeline-item">
+                <div class="timeline-date">2024</div>
+                <div class="timeline-content">
+                    <h3>Android Developer Intern</h3>
+                    <p>Developed features for enterprise Android application</p>
+                    <div class="timeline-tech">
+                        <span>Kotlin</span>
+                        <span>MVVM</span>
+                        <span>Room</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2023</div>
+                <div class="timeline-content">
+                    <h3>Freelance Developer</h3>
+                    <p>Built custom Android apps for small businesses</p>
+                    <div class="timeline-tech">
+                        <span>Java</span>
+                        <span>Firebase</span>
+                        <span>UI/UX</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="tech-radar">
+    <section id="skills" class="tech-radar">
         <h2>Technology <span class="highlight">Radar</span></h2>
-        <div class="radar-chart" id="techRadar"></div>
+        <div class="radar-container">
+            <div class="radar-chart" id="techRadar"></div>
+            <div class="radar-legend">
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #6ee7b7;"></span>
+                    <span>Expert</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #60a5fa;"></span>
+                    <span>Proficient</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #95a7bf;"></span>
+                    <span>Learning</span>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="JS/advanced-animations.js"></script>
+    <script src="JS/main.js"></script>
 </body>
 </html>

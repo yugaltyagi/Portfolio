@@ -1,4 +1,4 @@
-/* Enhanced main.js with all new features */
+/* Enhanced main.js with all features */
 const state = {
   projects: [
     { 
@@ -27,10 +27,10 @@ const state = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  // init year
+  // Initialize year in footer
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Initialize theme
+  // Initialize theme toggle
   initTheme();
   
   // Enhanced navigation with smooth scrolling
@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Button event listeners
   document.getElementById("resumeBtn").addEventListener("click", () => {
     window.open("Yogeshwar resume.pdf", "_blank");
   });
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("hireBtn").addEventListener("click", () => navigate('contact'));
   document.getElementById("contactRecruiter").addEventListener("click", () => navigate('contact'));
 
-  // contact form handling
+  // Contact form handling
   const form = document.getElementById("contactForm");
   form.addEventListener("submit", e => {
     e.preventDefault();
@@ -59,68 +60,83 @@ document.addEventListener("DOMContentLoaded", () => {
     openModal();
     form.reset();
   });
+  
   document.getElementById("clearBtn").addEventListener("click", () => form.reset());
   document.getElementById("modalClose").addEventListener("click", closeModal);
 
-  // populate projects previews
+  // Populate projects
   renderProjectPreviews();
   renderProjectsGrid();
 
-  // route handling
+  // Route handling
   window.addEventListener("hashchange", handleRoute);
-  handleRoute(); // initial
+  handleRoute(); // Initial route load
 
-  // small UI flourishes
+  // Initialize all animations and effects
   initFadeObserver();
   initAdvancedParticles();
   initAdvancedCursor();
   init3DHoverEffects();
   initSkillsVisualization();
-
-  // subtle hover activation for nav (keep active if route changes)
-  function navClick(e) {
-    document.querySelectorAll(".nav-link").forEach(a => a.classList.remove("active"));
-    e.currentTarget.classList.add("active");
-  }
 });
 
+// Navigation functions
 function navigate(route) {
   location.hash = "#" + route;
 }
 
 function handleRoute() {
   const hash = location.hash.replace("#", "") || "home";
-  // show/hide pages
+  
+  // Show/hide pages
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   const el = document.getElementById("page-" + hash);
   if (el) el.classList.remove("hidden");
 
-  // nav active
-  document.querySelectorAll(".nav-link").forEach(a => a.classList.toggle("active", a.dataset.route === hash));
-  // fade in visible elements
-  document.querySelectorAll("#page-" + hash + " .fade-in").forEach(n => setTimeout(()=>n.classList.add("show"), 80));
+  // Update active nav link
+  document.querySelectorAll(".nav-link").forEach(a => 
+    a.classList.toggle("active", a.dataset.route === hash)
+  );
+  
+  // Fade in visible elements
+  document.querySelectorAll(`#page-${hash} .fade-in`).forEach(n => 
+    setTimeout(() => n.classList.add("show"), 80)
+  );
 }
 
-// FORM VALIDATION (basic)
+// Form validation
 function validateForm() {
-  const name = document.getElementById("name"), email = document.getElementById("email"), msg = document.getElementById("message");
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const msg = document.getElementById("message");
+  
   if (!name.value.trim() || !email.value.trim() || !msg.value.trim()) {
-    alert("Please fill required fields.");
+    alert("Please fill all required fields.");
     return false;
   }
+  
   if (!/^\S+@\S+\.\S+$/.test(email.value.trim())) {
-    alert("Please enter a valid email.");
+    alert("Please enter a valid email address.");
     return false;
   }
+  
   return true;
 }
 
-// MODAL
+// Modal functions
 const modal = document.getElementById("modal");
-function openModal(){ modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow = "hidden"; }
-function closeModal(){ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); document.body.style.overflow = ""; }
+function openModal() { 
+  modal.classList.add("open"); 
+  modal.setAttribute("aria-hidden","false"); 
+  document.body.style.overflow = "hidden"; 
+}
+function closeModal() { 
+  modal.classList.remove("open"); 
+  modal.setAttribute("aria-hidden","true"); 
+  document.body.style.overflow = ""; 
+}
 
-// RENDER PROJECTS
+// Project rendering
 function renderProjectPreviews() {
   const list = document.getElementById("projList");
   state.projects.forEach(p => {
@@ -163,17 +179,7 @@ function renderProjectsGrid() {
   });
 }
 
-/* IntersectionObserver for fade-in sections */
-function initFadeObserver() {
-  const io = new IntersectionObserver(entries=>{
-    entries.forEach(ent=>{
-      if(ent.isIntersecting) ent.target.classList.add("show");
-    });
-  }, {threshold: 0.12});
-  document.querySelectorAll(".fade-in").forEach(n => io.observe(n));
-}
-
-/* Theme management */
+// Theme management
 function initTheme() {
   const toggle = document.createElement('button');
   toggle.id = 'themeToggle';
@@ -181,25 +187,41 @@ function initTheme() {
   toggle.addEventListener('click', toggleTheme);
   document.querySelector('.topbar').appendChild(toggle);
   
-  document.documentElement.classList.toggle('dark-mode', state.darkMode);
-  document.documentElement.classList.toggle('light-mode', !state.darkMode);
+  updateThemeClasses();
 }
 
 function toggleTheme() {
   state.darkMode = !state.darkMode;
-  document.documentElement.classList.toggle('dark-mode', state.darkMode);
-  document.documentElement.classList.toggle('light-mode', !state.darkMode);
+  updateThemeClasses();
   document.getElementById('themeToggle').innerHTML = state.darkMode ? '☀️' : '🌙';
   
-  // Reinitialize skills chart with new colors
+  // Reinitialize visualizations that depend on theme
   if (document.getElementById('skillsRadar')) {
     initSkillsVisualization();
   }
 }
 
-/* 3D hover effects */
+function updateThemeClasses() {
+  document.documentElement.classList.toggle('dark-mode', state.darkMode);
+  document.documentElement.classList.toggle('light-mode', !state.darkMode);
+}
+
+// Animation and effects
+function initFadeObserver() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.12 });
+  
+  document.querySelectorAll(".fade-in").forEach(n => io.observe(n));
+}
+
 function init3DHoverEffects() {
   const cards = document.querySelectorAll('.proj, .process-step, .metric-card, .hero-card');
+  
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -221,9 +243,10 @@ function init3DHoverEffects() {
   });
 }
 
-/* Advanced particle system */
 function initAdvancedParticles() {
   const canvas = document.getElementById("particles");
+  if (!canvas) return;
+  
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -238,12 +261,14 @@ function initAdvancedParticles() {
       this.size = Math.random() * 3 + 1;
       this.speedX = Math.random() * 2 - 1;
       this.speedY = Math.random() * 2 - 1;
-      this.color = state.darkMode ? `hsl(210, 100%, ${Math.random() * 50 + 50}%)` 
-                                  : `hsl(210, 80%, ${Math.random() * 30 + 20}%)`;
+      this.color = state.darkMode 
+        ? `hsl(210, 100%, ${Math.random() * 50 + 50}%)` 
+        : `hsl(210, 80%, ${Math.random() * 30 + 20}%)`;
       this.alpha = Math.random() * 0.5 + 0.1;
     }
     
     update(mouse) {
+      // Mouse interaction
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
       const distance = Math.sqrt(dx * dx + dy * dy);
@@ -256,9 +281,11 @@ function initAdvancedParticles() {
         this.y -= forceDirectionY * force * 5;
       }
       
+      // Movement
       this.x += this.speedX;
       this.y += this.speedY;
       
+      // Bounce off edges
       if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
       if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
     }
@@ -272,26 +299,35 @@ function initAdvancedParticles() {
     }
   }
   
+  // Create particles
   for (let i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
   
+  // Track mouse position
   const mouse = { x: null, y: null };
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.x;
     mouse.y = e.y;
   });
   
+  // Animation loop
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Update and draw particles
     particles.forEach(particle => {
       particle.update(mouse);
       particle.draw();
     });
+    
+    // Connect particles
     connectParticles();
+    
     requestAnimationFrame(animate);
   }
   
+  // Draw lines between close particles
   function connectParticles() {
     for (let a = 0; a < particles.length; a++) {
       for (let b = a; b < particles.length; b++) {
@@ -301,8 +337,9 @@ function initAdvancedParticles() {
         
         if (distance < 100) {
           ctx.beginPath();
-          ctx.strokeStyle = state.darkMode ? `rgba(200, 200, 255, ${1 - distance/100})` 
-                                          : `rgba(50, 50, 100, ${1 - distance/100})`;
+          ctx.strokeStyle = state.darkMode 
+            ? `rgba(200, 200, 255, ${1 - distance/100})` 
+            : `rgba(50, 50, 100, ${1 - distance/100})`;
           ctx.lineWidth = 0.5;
           ctx.moveTo(particles[a].x, particles[a].y);
           ctx.lineTo(particles[b].x, particles[b].y);
@@ -310,83 +347,107 @@ function initAdvancedParticles() {
         }
       }
     }
-
-      }
-    }
+  }
   
-
-  animate();
-
-  window.addEventListener("resize", () => {
+  // Handle resize
+  window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
+  
+  // Start animation
+  animate();
+}
 
-
-/* Advanced cursor trail (spark) */
 function initAdvancedCursor() {
-  const spark = document.getElementById("spark");
-  if (!spark) return;
-
-  window.addEventListener("mousemove", (e) => {
-    spark.style.left = e.clientX + "px";
-    spark.style.top = e.clientY + "px";
+  const cursor = document.getElementById("spark");
+  if (!cursor) return;
+  
+  const links = document.querySelectorAll('a, button');
+  
+  // Mouse movement
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  });
+  
+  // Hover effects
+  links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(3)';
+      cursor.style.opacity = '0.5';
+    });
+    
+    link.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      cursor.style.opacity = '0.8';
+    });
   });
 }
 
-/* Skills radar chart initialization */
 function initSkillsVisualization() {
-  const canvas = document.getElementById("skillsRadar");
+  const canvas = document.getElementById('skillsRadar');
   if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  if (window.skillsChart) {
-    window.skillsChart.destroy();
-  }
-
-  window.skillsChart = new Chart(ctx, {
-    type: "radar",
-    data: {
-      labels: ["Kotlin", "Java", "Firebase", "UI/UX", "Jetpack Compose", "Testing"],
-      datasets: [
-        {
-          label: "Skill Level",
-          data: [90, 85, 80, 75, 70, 65],
-          fill: true,
-          backgroundColor: state.darkMode
-            ? "rgba(96,165,250,0.2)"
-            : "rgba(54,162,235,0.2)",
-          borderColor: state.darkMode ? "#60a5fa" : "#36A2EB",
-          pointBackgroundColor: "#6ee7b7",
-          pointBorderColor: "#fff",
-          pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "#6ee7b7",
-        },
-      ],
-    },
+  
+  const skillsData = {
+    labels: ['Kotlin', 'Java', 'Android SDK', 'Jetpack Compose', 'Firebase', 'UI/UX', 'Architecture', 'Testing'],
+    datasets: [{
+      label: 'Skill Level',
+      data: [95, 90, 85, 80, 75, 70, 65, 60],
+      backgroundColor: 'rgba(110, 231, 183, 0.2)',
+      borderColor: 'rgba(110, 231, 183, 1)',
+      pointBackgroundColor: 'rgba(110, 231, 183, 1)',
+      pointBorderColor: '#fff',
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(110, 231, 183, 1)'
+    }]
+  };
+  
+  const skillsConfig = {
+    type: 'radar',
+    data: skillsData,
     options: {
       responsive: true,
       scales: {
         r: {
+          angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+          grid: { color: 'rgba(255, 255, 255, 0.1)' },
           suggestedMin: 0,
           suggestedMax: 100,
-          grid: {
-            color: state.darkMode
-              ? "rgba(255,255,255,0.1)"
-              : "rgba(0,0,0,0.1)",
-          },
-          pointLabels: {
-            color: state.darkMode ? "#fff" : "#000",
-          },
-        },
+          pointLabels: { 
+            color: state.darkMode ? '#fff' : '#333',
+            font: {
+              size: 11
+            }
+          }
+        }
       },
       plugins: {
-        legend: {
-          labels: {
-            color: state.darkMode ? "#fff" : "#000",
-          },
-        },
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (context) => `${context.dataset.label}: ${context.raw}%`
+          }
+        }
       },
-    },
-  });
+      elements: {
+        line: { tension: 0.1, borderWidth: 3 },
+        point: { radius: 4 }
+      }
+    }
+  };
+  
+  // Destroy previous chart if exists
+  if (canvas.chart) {
+    canvas.chart.destroy();
+  }
+  
+  // Create new chart
+  canvas.chart = new Chart(canvas.getContext('2d'), skillsConfig);
+}
+
+// Helper function for nav click
+function navClick(e) {
+  document.querySelectorAll(".nav-link").forEach(a => a.classList.remove("active"));
+  e.currentTarget.classList.add("active");
 }
