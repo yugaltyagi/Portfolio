@@ -139,7 +139,7 @@ h1 {
 }
 
 .hero-card {
-  width: 300px;
+  width: 350px;
   padding: 20px;
   border-radius: var(--radius);
   background: var(--glass);
