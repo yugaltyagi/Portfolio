@@ -24,6 +24,6 @@ npx serve .
 ## Contact
 
 - **Email:** Yugaltyagi13@gmail.com
-- **Phone:** +91 9999449742
+- **Instagram:** [@_yuuugal](https://www.instagram.com/_yuuugal/)
 - **LinkedIn:** [yogeshwar-tyagi](https://www.linkedin.com/in/yogeshwar-tyagi)
 - **GitHub:** [yugaltyagi](https://github.com/yugaltyagi)
